@@ -10,11 +10,12 @@ $topics = [
     "game availability"
 ];
 // Get search term from form
-$searchTerm = isset($_GET['q']) ? trim($_GET['q']) : '. this topic or topics is related to gaming search under these categories: ';
-if ($searchTerm !== '') {
-    $query = urlencode(implode(" OR ", $topics));
+$searchTerm = isset($_GET['q']) ? trim($_GET['q']) : '';
+if (!empty($searchTerm)) {
+    $query = urlencode($searchTerm);
 } else {
-    $query = urlencode("your query might not be related to gaming, please try again later");
+    // Your custom default query for the feed
+    $query = urlencode("random gaming news updates");
 }
 $endpoint = "https://newsdata.io/api/1/news?apikey={$apiKey}&q={$query}&language=en&category=technology,entertainment,business";
 // Fetch news from API
@@ -27,10 +28,12 @@ function fetchNews($endpoint) {
     ];
     $context = stream_context_create($options);
     $response = file_get_contents($endpoint, false, $context);
+    if ($response === FALSE) {
+        return ['status' => 'error', 'message' => 'Failed to fetch news. Please reconsider your query and try again later.'];
+    }
     return $response ? json_decode($response, true) : null;
 }
-
-$newsData = fetchNews($endpoint);
+$newsData = fetchNews("https://newsdata.io/api/1/news?apikey={$apiKey}&q={$query}");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,7 +144,7 @@ $newsData = fetchNews($endpoint);
 <body>
     <header>
         <h1>🎮 Gaming News Live</h1>
-        <p>Latest updates on consoles, PC, Android gaming, and game releases</p>
+        <p>Latest updates on consoles, PC, Android gaming, and game releases. some articles may be in other languages</p>
     </header>
     <form class="search-bar" method="get" action="">
             <input type="text" name="q" placeholder="Search news..." value="<?php echo htmlspecialchars($searchTerm); ?>">
