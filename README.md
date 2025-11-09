@@ -1,5 +1,5 @@
 # Introduction
-Are you a gamer still unaware of the latest happenings in the gaming world? Don’t miss out! This app is designed to keep you updated with the freshest news and trends from the gaming industry. Whether you’re a casual player or a hardcore enthusiast, you’ll find the latest updates, announcements, and insights right here—all tailored for gamers like you.(Note: This app is not yet deployed, but stay tuned for updates as i work to bring you the ultimate source for gaming news!)
+Stay informed with the latest news, trends, and updates from the gaming industry. This application provides timely and relevant information to keep gamers up to date with important developments in gaming. Whether you are casual player or a hardcore enthusiast, this platform offers curated content to support your interests and keep you connected with the gaming world.
 # update 31 july 2025
 used better api from newsapi.org, added relevance in articles to use usability heuristics like
 1. Visibility of System Status
